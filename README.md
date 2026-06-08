@@ -78,6 +78,11 @@ Lab을 진행하며 이 시나리오를 단계적으로 확장합니다.
 vibe-coding-labs/
 ├── README.md                         # (현재 문서) 전체 개요·학습 목표·Lab 인덱스
 ├── .gitignore                        # .env, .venv, __pycache__, .azure 등 제외
+├── .github/                          # Copilot CLI vibe coding 최적화 설정 (아래 참고)
+│   ├── copilot-instructions.md       # 저장소 규칙·MAF 코드 패턴
+│   ├── instructions/                 # 한국어·Python·Azure·Git 커밋 컨벤션
+│   ├── prompts/                      # 재사용 프롬프트(코드 리뷰)
+│   └── workflows/                    # CI: 정답 코드 구문 검사(smoke)
 ├── docs/
 │   ├── 00-prerequisites.md           # 사전 준비/설치/인증
 │   ├── 01-vibe-coding-with-copilot-cli.md  # Copilot CLI vibe coding 워크플로우
@@ -92,6 +97,9 @@ vibe-coding-labs/
     ├── README.md
     └── solution/                     # main.py, requirements.txt, .env.example
 ```
+
+> 💡 이 저장소에는 **`.github/` Copilot 커스터마이징**이 포함되어 있어, 저장소에서 `copilot` 세션을 열면
+> Copilot CLI가 이 프로젝트의 MAF 코드 패턴·환경변수·한국어 컨벤션을 자동으로 따릅니다(더 정확한 vibe coding).
 
 ---
 

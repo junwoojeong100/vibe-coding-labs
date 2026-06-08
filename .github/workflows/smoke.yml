@@ -1,0 +1,27 @@
+name: smoke
+
+# 각 lab 정답 코드의 구문 오류를 빠르게 잡는 경량 스모크 테스트입니다.
+# Azure 자격증명이 없어도 동작하도록, 실제 실행 대신 바이트컴파일만 수행합니다.
+on:
+  push:
+    branches: ["**"]
+  pull_request:
+    branches: [main]
+
+jobs:
+  compile:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.13"
+
+      - name: Byte-compile all solution scripts
+        run: |
+          python -m compileall -q \
+            lab01-single-agent/solution \
+            lab02-multi-agent-workflow/solution \
+            lab03-hosted-agent-deploy/solution
