@@ -50,7 +50,7 @@ cd lab03-hosted-agent-deploy
 azd ai agent init -m "https://github.com/microsoft-foundry/foundry-samples/blob/main/samples/python/hosted-agents/agent-framework/responses/01-basic/agent.manifest.yaml"
 ```
 
-> 🌐 **리전 주의**: hosted agent는 preview 단계라 일부 리전(예: **North Central US**)만 지원될 수 있습니다. `init` 중 리전을 선택할 때 [지원 리전](https://learn.microsoft.com/azure/foundry/agents/concepts/hosted-agents)을 확인하세요.
+> 🌐 **리전**: hosted agent는 **East US 2, Korea Central, Japan East, North Central US 등 여러 리전**에서 사용할 수 있습니다. 이 실습이 쓰는 **Responses 프로토콜**은 hosted agent를 지원하는 모든 리전에서 동작합니다. (참고: *Invocations(WebSocket)* 프로토콜만 현재 North Central US 전용입니다.) `init`에서 리전을 고를 때 [전체 지원 리전 목록](https://learn.microsoft.com/azure/foundry/agents/concepts/hosted-agents#region-availability)을 확인하세요.
 
 생성되는 주요 파일:
 
