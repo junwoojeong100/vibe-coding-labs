@@ -6,7 +6,7 @@ applyTo: "**/*.py"
 
 ## 가상환경 / 실행
 
-- **Python 3.13+** 를 사용한다(MAF와 hosted agent 요구사항).
+- **Python 3.14.5** 를 사용한다(이 실습 표준 버전; MAF·hosted agent 공식 최소 요구는 3.13).
 - 각 lab의 `solution/`에서 가상환경을 만들고 의존성을 설치한다:
   ```bash
   python3 -m venv .venv

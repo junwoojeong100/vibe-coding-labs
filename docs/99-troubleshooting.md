@@ -14,7 +14,7 @@
 | `ModuleNotFoundError: agent_framework...` | 가상환경 미활성/미설치. `.venv` 활성화 후 `pip install -r requirements.txt`. |
 | `401` / `403` (권한) | 프로젝트에 대한 접근 권한 부족. **Foundry User** 이상 역할이 필요. |
 | 모델 호출이 매우 느리거나 `429` | 모델 배포의 quota/TPM 부족. capacity를 늘리거나 다른 모델 사용. |
-| Python 버전 오류 | MAF는 **3.13+** 필요. `python3 --version` 확인. |
+| Python 버전 오류 | 이 실습은 **Python 3.14.5** 기준. `python3 --version` 확인. |
 
 ---
 

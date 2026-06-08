@@ -65,7 +65,7 @@ Lab을 진행하며 이 시나리오를 단계적으로 확장합니다.
 자세한 내용과 설치 방법은 [`docs/00-prerequisites.md`](docs/00-prerequisites.md)를 참고하세요.
 
 - **Azure 구독** + **Foundry 프로젝트**(모델 배포 포함) + **Foundry Project Manager** 역할
-- **Python 3.13+**, **Git**
+- **Python 3.14.5+**, **Git**
 - **Azure Developer CLI(azd) 1.25.3+** 와 `azd ai agent` 확장(`azure.ai.agents`) **0.1.27-preview+**
 - **GitHub Copilot CLI** (설치 및 인증 완료)
 - `az login` 로그인 (DefaultAzureCredential 인증용)

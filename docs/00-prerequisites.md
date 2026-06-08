@@ -19,13 +19,17 @@
 
 ## 2. 개발 도구
 
-### 2.1 Python 3.13+
+### 2.1 Python 3.14.5+
 
 ```bash
-python3 --version    # Python 3.13.x 이상이어야 함
+python3 --version    # Python 3.14.5 이상이어야 함
 ```
 
-> MAF와 hosted agent는 **Python 3.13 이상**을 요구합니다. 더 낮은 버전은 설치/실행이 실패할 수 있습니다.
+이 실습은 **Python 3.14.5** 기준으로 설치·실행을 검증했습니다. 설치 방법:
+- macOS: `brew install python@3.14`
+- 기타: [python.org 다운로드](https://www.python.org/downloads/)
+
+> 참고: MAF·hosted agent의 공식 최소 요구 버전은 3.13이지만, 본 가이드는 **3.14.5**를 사용합니다. 더 낮은 버전은 설치/실행이 실패할 수 있습니다.
 
 ### 2.2 Git
 
@@ -119,7 +123,7 @@ cp .env.example .env
 ## 4. 준비 완료 체크리스트
 
 - [ ] `az login` / `azd auth login` 으로 Azure에 로그인됨
-- [ ] `python3 --version` ≥ 3.13
+- [ ] `python3 --version` ≥ 3.14.5
 - [ ] `azd version` ≥ 1.25.3, `azd extension list --installed`에 `azure.ai.agents` 있음
 - [ ] `copilot --version` 정상 출력, Copilot 인증 완료
 - [ ] Foundry 프로젝트 엔드포인트와 모델 배포 이름 확보
