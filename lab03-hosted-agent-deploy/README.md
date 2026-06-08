@@ -150,21 +150,55 @@ azd ai agent monitor --follow           # (선택) 컨테이너 로그 스트리
 
 hosted agent의 동작(요청·모델 호출·단계별 지연·토큰 사용량·오류)을 OpenTelemetry 트레이스로 관찰합니다.
 
-**App Insights 생성/연결 → 트레이싱 활성화**
+**App Insights 생성·연결 (트레이싱 활성화)** — 아래 두 경로 중 하나로 켭니다.
 
-- `azd up`(또는 `azd provision`)이 **Application Insights를 자동 생성**하고, hosted agent 컨테이너에
-  연결 문자열(`APPLICATIONINSIGHTS_CONNECTION_STRING`)을 **자동 주입**합니다. 호스트(`ResponsesHostServer`)가
-  시작 시 OpenTelemetry를 자동 구성하므로 **추가 코드 없이 서버사이드 트레이싱이 동작**합니다.
-- 기존 App Insights를 연결하거나 연결 상태를 확인하려면: [Foundry 포털](https://ai.azure.com) → 프로젝트 →
-  **Management → Connected resources**에서 Application Insights 리소스를 연결/확인합니다. 프로젝트에 App Insights가
-  연결되면 Foundry가 서버사이드 트레이싱을 자동 활성화합니다(코드 변경 없이 수 분 내 반영).
+**방법 A — `azd`가 자동 처리 (이 실습 기본)**
+
+`azd up`(또는 `azd provision`)이 Application Insights를 **자동 생성·연결**하고 컨테이너에
+`APPLICATIONINSIGHTS_CONNECTION_STRING`을 주입합니다. 호스트(`ResponsesHostServer`)가 시작 시 OpenTelemetry를
+자동 구성하므로 **추가 작업 없이 서버사이드 트레이싱이 켜집니다.** → 아래 *트레이싱 동작 검증*으로 이동.
+
+**방법 B — Foundry 포털에서 직접 연결** (기존 App Insights 사용/수동 연결 시)
+
+1. [ai.azure.com](https://ai.azure.com/?cid=learnDocs)에 로그인하고 우측 상단 **New Foundry** 토글을 켭니다.
+2. 대상 **프로젝트**를 엽니다.
+3. 좌측 내비게이션에서 **Agents**를 선택합니다.
+4. 상단의 **Traces** 탭을 선택합니다.
+5. 오른쪽 **Connect** 버튼을 클릭합니다.
+   - **기존 리소스 연결**: 리소스를 선택 → **Connect**
+   - **새로 만들기**: **Create new** 선택 → 마법사 완료
+6. 연결 성공 메시지가 뜨면 트레이싱이 **자동 활성화**됩니다(코드 변경 없음, 수 분 내 반영).
+
+> **Connect** 버튼이 안 보이면: 프로젝트 이름 메뉴 → **Project details** → **Connected resources** 탭 →
+> **Add connection** → **Application Insights** 선택.
+
+**(선택) App Insights 리소스를 CLI로 미리 생성**
+
+```bash
+az monitor app-insights component create \
+  --app <appinsights-name> \
+  --location <region> \
+  --resource-group <resource-group> \
+  --application-type web
+```
+
+생성한 리소스를 *방법 B*에서 선택해 연결합니다. (`application-insights` az 확장이 없으면 첫 실행 시 자동 설치됩니다.)
+
+**권한**: 트레이스를 조회하려면 연결된 App Insights 리소스에 **Log Analytics Reader** 역할이 필요합니다
+([역할 할당 방법](https://learn.microsoft.com/azure/role-based-access-control/role-assignments-portal)).
 
 > 참고: hosted agent 트레이싱은 현재 **preview**입니다(prompt agent는 GA). 트레이스에는 프롬프트·응답 등
-> 민감정보가 포함될 수 있으니 접근 권한(Log Analytics Reader 등)에 유의하세요.
+> 민감정보가 포함될 수 있으니 접근 권한·보존 정책에 유의하세요.
 
-**트레이스 보기**
+**트레이싱 동작 검증**
 
-- **Foundry 포털** → 프로젝트 → **Observability → Traces** (스팬 트리·지연·토큰 확인)
+1. 프로젝트가 App Insights에 연결됐는지 확인합니다.
+2. agent를 **1회 이상 실행**합니다(`azd ai agent invoke "..."` 또는 playground).
+3. Foundry 포털 **Agents → Traces**에서 새 트레이스가 보이는지 확인합니다(안 보이면 몇 분 뒤 새로고침).
+
+**트레이스 보기 (3곳)**
+
+- **Foundry 포털** → 프로젝트 → **Agents → Traces** 탭 (스팬 트리·지연·토큰, 최근 90일 검색/필터)
 - **컨테이너 로그 스트리밍**: `azd ai agent monitor --follow`
 - **Azure 포털** → 해당 Application Insights → **Investigate → Transaction search** 또는 **Performance**
 
@@ -202,7 +236,7 @@ azd down
 | `agent.manifest.yaml` | `azd ai agent init`이 사용하는 agent 정의(이름·프로토콜·모델 리소스) |
 | `azure.yaml` / `agent.yaml` | 배포 정의 / 컨테이너 사양(CPU·메모리·환경 변수) |
 | `azd up` / `azd down` | 리소스 provision+deploy / 전체 삭제 |
-| Application Insights / 트레이싱 | `azd`가 자동 생성·연결하고 호스트가 OTel을 자동 구성 → Foundry **Observability → Traces**에서 확인(preview). 로컬은 `client.configure_azure_monitor()` |
+| Application Insights / 트레이싱 | `azd`가 자동 생성·연결하고 호스트가 OTel을 자동 구성 → Foundry **Agents → Traces**에서 확인(preview). 로컬은 `client.configure_azure_monitor()` |
 
 > Lab 2에서는 `output_from="all"`로 모든 단계를 출력했지만, 여기서는 hosted agent가 **최종 결과(Reviewer 출력)**만 반환하도록 `output_from`을 지정하지 않았습니다.
 

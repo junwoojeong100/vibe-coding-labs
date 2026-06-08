@@ -33,7 +33,7 @@
 | `azd ai agent` 명령을 찾을 수 없음 | 확장 미설치. `azd extension install azure.ai.agents` (또는 `azd ai agent`를 한 번 실행하면 자동 설치). |
 | Windows ARM64에서 `aiohttp`/`grpcio` 등 빌드 실패 | arm64 휠 부재. 로컬 실행(Step 3)을 건너뛰고 `azd deploy` 후 `azd ai agent invoke`로 원격 검증. |
 | preview 패키지의 pip 의존성 경고 | **비차단(nonblocking)** 경고로, 무시해도 agent는 정상 동작합니다. |
-| 트레이스가 Foundry/App Insights에 안 보임 | 전파에 **2~5분** 소요. 프로젝트에 App Insights가 **연결**됐는지 확인(Foundry 포털 → **Management → Connected resources**). hosted agent 트레이싱은 preview이며, `azd up`으로 배포 시 자동 연결됩니다. |
+| 트레이스가 Foundry/App Insights에 안 보임 | 전파에 **2~5분** 소요. 프로젝트에 App Insights가 **연결**됐는지 확인(Foundry 포털 → **Agents → Traces → Connect**). agent를 1회 이상 실행했는지 확인. hosted agent 트레이싱은 preview이며 `azd up` 배포 시 자동 연결됩니다. |
 
 권한 매트릭스 전체는 [Hosted agent permissions reference](https://learn.microsoft.com/azure/foundry/agents/concepts/hosted-agent-permissions)를 참고하세요.
 
