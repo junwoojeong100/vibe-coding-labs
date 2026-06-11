@@ -5,21 +5,12 @@ mode: "agent"
 
 # 코드 리뷰 요청
 
-## 대상
+{{file_or_feature}} 코드를 아래 관점에서 검토하고 개선사항을 **한국어**로 알려주세요:
 
-{{file_or_feature}} 코드를 리뷰해주세요.
-
-## 체크리스트
-
-아래 관점에서 검토하고 개선사항을 **한국어**로 알려주세요:
-
-1. **패턴 준수** — `FoundryChatClient` + `client.as_agent(...)` + (멀티 agent면) `SequentialBuilder(participants=[...])`
-   패턴을 따르는가? 호스팅 코드면 `workflow.as_agent()` + `ResponsesHostServer(...)`를 쓰는가?
-2. **import 경로** — `agent_framework.foundry`, `agent_framework.orchestrations`,
-   `agent_framework_foundry_hosting` 경로가 정확한가? (설치된 1.8.x 기준)
-3. **비동기** — 모든 agent/워크플로우 호출이 `async/await`이고 콘솔 진입점이 `asyncio.run(main())`인가?
-4. **인증/환경변수** — `DefaultAzureCredential`을 쓰고, `FOUNDRY_PROJECT_ENDPOINT` /
-   `AZURE_AI_MODEL_DEPLOYMENT_NAME`을 `.env`에서 로드하는가? (`load_dotenv()` 호출 여부)
+1. **패턴** — `FoundryChatClient` + `client.as_agent(...)`, 멀티 agent는 `SequentialBuilder(participants=[...])`, 호스팅은 `workflow.as_agent()` + `ResponsesHostServer(...)`를 따르는가?
+2. **import 경로** — `agent_framework.foundry`·`agent_framework.orchestrations`·`agent_framework_foundry_hosting`이 정확한가(설치된 1.8.x 기준)?
+3. **비동기** — agent/워크플로우 호출이 `async/await`이고 진입점이 `asyncio.run(main())`인가?
+4. **인증/환경변수** — `DefaultAzureCredential`을 쓰고 `FOUNDRY_PROJECT_ENDPOINT`/`AZURE_AI_MODEL_DEPLOYMENT_NAME`을 `.env`에서 로드(`load_dotenv()`)하는가?
 5. **보안** — 엔드포인트·키 하드코딩, 시크릿 노출, `.env` 커밋 위험은 없는가?
 6. **한국어 품질** — docstring·주석·사용자 메시지·agent `instructions`가 자연스러운가?
 
