@@ -1,8 +1,8 @@
 # Vibe Coding Labs — GitHub Copilot CLI로 만드는 MAF Agent & Foundry 배포
 
-GitHub Copilot CLI로 **vibe coding**(프롬프트 → 코드 생성 → 검토 → 반복)을 하면서,
-**Microsoft Agent Framework(MAF, Python)** 기반의 **단일 agent**와 **멀티 agent workflow**를 직접 구현하고,
-이를 **Microsoft Foundry Hosted Agents**로 배포·실행해 보는 단계별 실습 가이드입니다.
+GitHub Copilot CLI로 **vibe coding**(프롬프트 → 코드 생성 → 검토 → 반복)하며,
+**Microsoft Agent Framework(MAF, Python)** 기반의 **단일 agent**와 **멀티 agent workflow**를 구현하고
+**Microsoft Foundry Hosted Agents**로 배포·실행하는 단계별 실습 가이드입니다.
 
 > 모든 lab은 **Copilot CLI에 넘길 프롬프트**를 제시합니다. 직접 생성하며 익히되, 막히면 각 lab의 `solution/` **레퍼런스 코드**를 참고하세요.
 
