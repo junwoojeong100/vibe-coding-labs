@@ -14,19 +14,19 @@ GitHub Copilot CLI로 vibe coding하며 **Microsoft Agent Framework(MAF, Python)
 - `lab03-hosted-agent-deploy/` — 위 workflow를 Foundry hosted agent로 배포
 - 각 lab = `README.md`(프롬프트·단계·검증) + `solution/`(정답 코드·`requirements.txt`·`.env.example`)
 
-## 기술 스택 (검증 기준: `agent-framework` 1.8.0 / Python 3.14.5)
+## 기술 스택 (검증 기준: MAF 구성 요소 1.8.0 / Python 3.14.5)
 
-- **AI**: 메타 패키지 `agent-framework`(foundry·orchestrations 포함)
+- **AI**: `agent-framework-core`·`agent-framework-openai`·`agent-framework-foundry` 1.8.0
 - **Foundry**: `FoundryChatClient` (`agent_framework.foundry`)
-- **오케스트레이션**: `SequentialBuilder` (`agent_framework.orchestrations`)
-- **호스팅(Lab 3)**: `ResponsesHostServer` (`agent_framework_foundry_hosting`)
+- **오케스트레이션**: `SequentialBuilder` (`agent_framework.orchestrations`, 패키지 1.0.0rc3)
+- **호스팅(Lab 3)**: `ResponsesHostServer` (`agent_framework_foundry_hosting`, 패키지 1.0.0a260604)
 - **인증**: `DefaultAzureCredential`(`azure-identity`) — 로컬은 `az login` 세션
 - **환경변수**: `python-dotenv`로 실행 폴더의 `.env` 로드
 
 ## 환경변수 (모든 lab 공통 — 이름 변경 금지)
 
 - `FOUNDRY_PROJECT_ENDPOINT` — Foundry 프로젝트 엔드포인트
-- `AZURE_AI_MODEL_DEPLOYMENT_NAME` — 배포한 모델 이름 (Lab 3 hosted 환경에서 자동 주입되는 이름과 동일)
+- `AZURE_AI_MODEL_DEPLOYMENT_NAME` — 배포한 모델 이름 (Lab 3의 `azure.yaml`이 hosted 환경에 같은 이름으로 매핑)
 
 ## 코드 패턴
 
@@ -72,5 +72,6 @@ ResponsesHostServer(pipeline).run()                  # http://localhost:8088/res
 
 ## 배포 (Lab 3)
 
-`azd ai agent` 확장(`azure.ai.agents`)으로 스캐폴드 → 로컬 테스트(`azd ai agent run --no-inspector`)
-→ 배포(`azd up`) → 정리(`azd down`). 상세 단계는 `lab03-hosted-agent-deploy/README.md` 참조.
+`azd ai agent` 확장(`azure.ai.agents` 1.0.0-beta.4+)으로 스캐폴드 →
+리소스 준비(`azd provision`) → 로컬 테스트(`azd ai agent run`) →
+배포(`azd deploy`) → 정리(`azd down`). 상세 단계는 `lab03-hosted-agent-deploy/README.md` 참조.

@@ -4,7 +4,7 @@ Lab 2의 Researcher -> Writer -> Reviewer workflow를 workflow.as_agent()로 감
 ResponsesHostServer로 호스팅합니다. Foundry hosting 인프라가 :8088 에서 Responses
 프로토콜 HTTP 엔드포인트를 제공합니다.
 
-로컬 실행(권장):  azd ai agent run --no-inspector
+로컬 실행(권장):  azd ai agent run
 직접 실행:        python main.py   (http://localhost:8088/responses)
 """
 
@@ -16,7 +16,7 @@ from agent_framework_foundry_hosting import ResponsesHostServer
 from azure.identity import DefaultAzureCredential
 from dotenv import load_dotenv
 
-# 로컬 실행 시 .env 로드. (Foundry hosted 환경에서는 변수가 자동 주입됩니다.)
+# 로컬 실행 시 .env 로드. hosted 환경에서는 azure.yaml 설정으로 변수를 주입합니다.
 load_dotenv()
 
 RESEARCHER_INSTRUCTIONS = (

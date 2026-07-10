@@ -13,6 +13,7 @@ venv/
 
 # Azure Developer CLI
 .azure/
+lab03-hosted-agent-deploy/workspace/
 
 # OS / 에디터
 .DS_Store

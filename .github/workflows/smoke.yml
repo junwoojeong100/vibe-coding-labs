@@ -1,7 +1,7 @@
 name: smoke
 
-# 각 lab 정답 코드의 구문 오류를 빠르게 잡는 경량 스모크 테스트입니다.
-# Azure 자격증명이 없어도 동작하도록, 실제 실행 대신 바이트컴파일만 수행합니다.
+# 각 lab 정답 코드의 구문·import·핵심 API 계약을 확인하는 스모크 테스트입니다.
+# 더미 설정으로 객체만 생성하므로 Azure 자격증명이나 모델 호출은 필요하지 않습니다.
 on:
   push:
     branches: ["**"]
@@ -19,9 +19,44 @@ jobs:
         with:
           python-version: "3.14.5"
 
+      - name: Install validated dependencies
+        run: |
+          python -m pip install --upgrade pip
+          python -m pip install -r lab03-hosted-agent-deploy/solution/requirements.txt
+          python -m pip check
+
       - name: Byte-compile all solution scripts
         run: |
           python -m compileall -q \
             lab01-single-agent/solution \
             lab02-multi-agent-workflow/solution \
             lab03-hosted-agent-deploy/solution
+
+      - name: Verify solution API contracts
+        env:
+          FOUNDRY_PROJECT_ENDPOINT: https://example.services.ai.azure.com/api/projects/example
+          AZURE_AI_MODEL_DEPLOYMENT_NAME: example-model
+        run: |
+          python - <<'PY'
+          import importlib.util
+          from pathlib import Path
+
+          cases = [
+              ("lab01-single-agent/solution/agent.py", "build_researcher", "Agent"),
+              ("lab02-multi-agent-workflow/solution/workflow.py", "build_workflow", "Workflow"),
+              (
+                  "lab03-hosted-agent-deploy/solution/main.py",
+                  "build_pipeline_agent",
+                  "WorkflowAgent",
+              ),
+          ]
+
+          for index, (file_name, factory_name, expected_type) in enumerate(cases):
+              path = Path(file_name)
+              spec = importlib.util.spec_from_file_location(f"smoke_{index}", path)
+              assert spec and spec.loader
+              module = importlib.util.module_from_spec(spec)
+              spec.loader.exec_module(module)
+              value = getattr(module, factory_name)()
+              assert type(value).__name__ == expected_type
+          PY

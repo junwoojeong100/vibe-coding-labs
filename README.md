@@ -64,9 +64,12 @@ Lab을 진행하며 이 시나리오를 단계적으로 확장합니다.
 
 자세한 내용과 설치 방법은 [`docs/00-prerequisites.md`](docs/00-prerequisites.md)를 참고하세요.
 
-- **Azure 구독** + **Foundry 프로젝트**(모델 배포 포함) + **Foundry Project Manager** 역할
+- **Azure 구독** + **Foundry 프로젝트**(모델 배포 포함)
+  - Lab 1·2: **Foundry User**
+  - 기존 프로젝트에 Lab 3 배포: **Foundry Project Manager**
+  - Lab 3에서 새 프로젝트 생성: 리소스 그룹 범위 **Owner**
 - **Python 3.14.5+**, **Git**
-- **Azure Developer CLI(azd) 1.25.3+** 와 `azd ai agent` 확장(`azure.ai.agents`) **0.1.27-preview+**
+- **Azure Developer CLI(azd) 1.25.3+** 와 `azd ai agent` 확장(`azure.ai.agents`) **1.0.0-beta.4+**
 - **GitHub Copilot CLI** (설치 및 인증 완료)
 - `az login` 로그인 (DefaultAzureCredential 인증용)
 
@@ -82,7 +85,7 @@ vibe-coding-labs/
 │   ├── copilot-instructions.md       # 저장소 규칙·MAF 코드 패턴
 │   ├── instructions/                 # 한국어·Python·Azure·Git 커밋 컨벤션
 │   ├── prompts/                      # 재사용 프롬프트(코드 리뷰)
-│   └── workflows/                    # CI: 정답 코드 구문 검사(smoke)
+│   └── workflows/                    # CI: 정답 코드 구문·API 계약 검사(smoke)
 ├── docs/
 │   ├── 00-prerequisites.md           # 사전 준비/설치/인증
 │   ├── 01-vibe-coding-with-copilot-cli.md  # Copilot CLI vibe coding 워크플로우
