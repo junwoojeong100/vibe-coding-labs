@@ -79,7 +79,14 @@ MAF(Microsoft Agent Framework, Python)로 순차 멀티 agent workflow를 만들
 - agent_framework.orchestrations 의 SequentialBuilder 로 연결하고 output_from="all" 지정
 - 명령행 인자로 받은 주제로 workflow.run 실행
 - result.get_outputs() 를 순회하며 각 단계(agent)의 메시지를 단계별로 콘솔에 출력
-- requirements.txt 와 .env.example 도 함께 생성 (메타 `agent-framework` 패키지면 SequentialBuilder가 포함됨)
+- requirements.txt에는 아래 검증 버전을 사용
+  - agent-framework-core==1.8.0
+  - agent-framework-openai==1.8.0
+  - agent-framework-foundry==1.8.0
+  - agent-framework-orchestrations==1.0.0rc3
+  - azure-identity>=1.25.0,<2.0.0
+  - python-dotenv>=1.0.0,<2.0.0
+- requirements.txt 와 .env.example 도 함께 생성
 ```
 
 ### Step 2. 생성된 코드 검토
@@ -123,6 +130,9 @@ python workflow.py "재택근무가 생산성에 미치는 영향"
 ```
 
 user → Researcher → Writer → Reviewer 순서로 4개의 메시지가 보이면 성공입니다.
+
+> ⚠️ Researcher에는 웹 검색 도구가 없으므로 결과는 실시간 조사가 아닙니다. Writer와 Reviewer가
+> 같은 입력을 이어받아도 사실 검증이 자동으로 보장되지는 않습니다.
 
 ---
 

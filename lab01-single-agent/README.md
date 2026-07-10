@@ -67,6 +67,12 @@ MAF(Microsoft Agent Framework, Python)로 단일 "Researcher" agent를 만들어
 - instructions: 주어진 주제에 대해 신뢰할 수 있는 핵심 사실 5가지를 불릿으로 정리
 - 명령행 인자로 받은 주제를 조사해 콘솔에 출력 (await agent.run 사용)
 - asyncio.run(main())으로 비동기 실행
+- requirements.txt에는 아래 검증 버전을 사용
+  - agent-framework-core==1.8.0
+  - agent-framework-openai==1.8.0
+  - agent-framework-foundry==1.8.0
+  - azure-identity>=1.25.0,<2.0.0
+  - python-dotenv>=1.0.0,<2.0.0
 - requirements.txt 와 .env.example 도 함께 생성
 ```
 
@@ -111,6 +117,9 @@ python agent.py "양자 컴퓨팅" --stream
 
 - 5개 내외의 사실이 불릿으로 출력되면 성공입니다.
 - 인증/연결 오류가 나면 [문제 해결](../docs/99-troubleshooting.md)을 참고하세요.
+
+> ⚠️ 이 agent에는 웹 검색이나 출처 확인 도구가 없습니다. 출력은 모델 지식에 기반하므로
+> 최신 정보나 중요한 사실은 신뢰할 수 있는 원문에서 별도로 검증하세요.
 
 ---
 

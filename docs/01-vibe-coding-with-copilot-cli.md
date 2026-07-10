@@ -36,7 +36,9 @@ copilot
 ```
 
 대화형 세션에서 프롬프트를 입력하면 Copilot CLI가 파일 생성·수정과 명령 실행을 제안합니다.
-모든 변경은 **승인을 거쳐** 적용되니, 항상 내용을 확인하고 승인하세요.
+기본 권한 모드에서는 파일을 바꾸거나 명령을 실행하는 도구를 사용할 때 승인을 요청합니다.
+세션 단위 허용, `/allow-all`, `--yolo`, autopilot 모드에서는 매번 묻지 않을 수 있으므로
+`/diff`로 변경 내용을 직접 확인하세요.
 
 > 한 번에 프롬프트만 실행하고 싶다면: `copilot -p "여기에 프롬프트"` 형태도 사용할 수 있습니다.
 
@@ -74,6 +76,9 @@ MAF(Microsoft Agent Framework, Python)로 단일 "Researcher" agent를 만들어
 - [ ] **환경 변수 이름이 규칙과 같은가?** — `FOUNDRY_PROJECT_ENDPOINT`, `AZURE_AI_MODEL_DEPLOYMENT_NAME`
 - [ ] **비동기 처리** — `await agent.run(...)`, `asyncio.run(main())`
 - [ ] **시크릿이 코드/커밋에 포함되지 않는가?**
+
+Copilot CLI의 `/review`로 현재 변경분을 다시 검토하거나,
+`.github/prompts/review-code.prompt.md`의 체크리스트를 `@`로 참조해 리뷰를 요청할 수 있습니다.
 
 ---
 
