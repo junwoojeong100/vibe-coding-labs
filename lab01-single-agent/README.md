@@ -68,9 +68,9 @@ MAF(Microsoft Agent Framework, Python)로 단일 "Researcher" agent를 만들어
 - 명령행 인자로 받은 주제를 조사해 콘솔에 출력 (await agent.run 사용)
 - asyncio.run(main())으로 비동기 실행
 - requirements.txt에는 아래 검증 버전을 사용
-  - agent-framework-core==1.8.0
-  - agent-framework-openai==1.8.0
-  - agent-framework-foundry==1.8.0
+  - agent-framework-core==1.11.0
+  - agent-framework-openai==1.10.1
+  - agent-framework-foundry==1.10.1
   - azure-identity>=1.25.0,<2.0.0
   - python-dotenv>=1.0.0,<2.0.0
 - requirements.txt 와 .env.example 도 함께 생성

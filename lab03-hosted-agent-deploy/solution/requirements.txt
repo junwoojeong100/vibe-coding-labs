@@ -1,9 +1,7 @@
-agent-framework-core==1.8.0
-agent-framework-openai==1.8.0
-agent-framework-foundry==1.8.0
-agent-framework-orchestrations==1.0.0rc3
-agent-framework-foundry-hosting==1.0.0a260604
-# hosting 1.0.0a260604에서 누락된 런타임 의존성
-mcp>=1.24.0,<2.0.0
+agent-framework-core==1.11.0
+agent-framework-openai==1.10.1
+agent-framework-foundry==1.10.1
+agent-framework-orchestrations==1.0.0
+agent-framework-foundry-hosting==1.0.0a260709
 azure-identity>=1.25.0,<2.0.0
 python-dotenv>=1.0.0,<2.0.0

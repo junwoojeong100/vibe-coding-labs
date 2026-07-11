@@ -17,10 +17,13 @@ applyTo: "**/*.py"
 ## 의존성
 
 - 의존성은 각 lab `solution/requirements.txt`에 명시한다.
-- fresh install의 resolver 오류를 피하도록 `agent-framework-core`·`openai`·`foundry`를
-  1.8.0으로 고정하고, 멀티 agent는 `agent-framework-orchestrations` 1.0.0rc3을 추가한다.
-- Lab 3은 `agent-framework-foundry-hosting` 1.0.0a260604와 누락된 직접 의존성 `mcp`를
-  추가한다. 검증 없이 최신 MAF 구성 요소를 섞거나 메타 패키지 `agent-framework`로 바꾸지 않는다.
+- 검증 조합은 `agent-framework-core` 1.11.0,
+  `agent-framework-openai`·`agent-framework-foundry` 1.10.1이며,
+  멀티 agent는 `agent-framework-orchestrations` 1.0.0을 추가한다.
+- Lab 3은 Responses container protocol 2.0.0을 지원하는
+  `agent-framework-foundry-hosting` 1.0.0a260709를 사용한다. 이 버전은 `mcp`를 직접
+  의존하므로 별도로 중복 선언하지 않는다. 검증 없이 구성 요소 버전을 섞거나 메타 패키지
+  `agent-framework`로 바꾸지 않는다.
 
 ## 코드 스타일
 

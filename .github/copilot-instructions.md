@@ -14,12 +14,13 @@ GitHub Copilot CLI로 vibe coding하며 **Microsoft Agent Framework(MAF, Python)
 - `lab03-hosted-agent-deploy/` — 위 workflow를 Foundry hosted agent로 배포
 - 각 lab = `README.md`(프롬프트·단계·검증) + `solution/`(정답 코드·`requirements.txt`·`.env.example`)
 
-## 기술 스택 (검증 기준: MAF 구성 요소 1.8.0 / Python 3.14.5)
+## 기술 스택 (검증 기준: Python 3.14.5)
 
-- **AI**: `agent-framework-core`·`agent-framework-openai`·`agent-framework-foundry` 1.8.0
+- **AI**: `agent-framework-core` 1.11.0,
+  `agent-framework-openai`·`agent-framework-foundry` 1.10.1
 - **Foundry**: `FoundryChatClient` (`agent_framework.foundry`)
-- **오케스트레이션**: `SequentialBuilder` (`agent_framework.orchestrations`, 패키지 1.0.0rc3)
-- **호스팅(Lab 3)**: `ResponsesHostServer` (`agent_framework_foundry_hosting`, 패키지 1.0.0a260604)
+- **오케스트레이션**: `SequentialBuilder` (`agent_framework.orchestrations`, 패키지 1.0.0)
+- **호스팅(Lab 3)**: `ResponsesHostServer` (`agent_framework_foundry_hosting`, 패키지 1.0.0a260709)
 - **인증**: `DefaultAzureCredential`(`azure-identity`) — 로컬은 `az login` 세션
 - **환경변수**: `python-dotenv`로 실행 폴더의 `.env` 로드
 
@@ -75,3 +76,5 @@ ResponsesHostServer(pipeline).run()                  # http://localhost:8088/res
 `azd ai agent` 확장(`azure.ai.agents` 1.0.0-beta.4+)으로 스캐폴드 →
 리소스 준비(`azd provision`) → 로컬 테스트(`azd ai agent run`) →
 배포(`azd deploy`) → 정리(`azd down`). 상세 단계는 `lab03-hosted-agent-deploy/README.md` 참조.
+`azure.yaml`의 Responses container protocol은 현재 버전 `2.0.0`을 유지하고 deprecated된
+`1.0.0`으로 낮추지 않는다.

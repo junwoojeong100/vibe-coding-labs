@@ -1,6 +1,6 @@
 name: smoke
 
-# 각 lab 정답 코드의 구문·import·핵심 API 계약을 확인하는 스모크 테스트입니다.
+# 각 lab 정답 코드의 의존성·가이드·구문·import·핵심 API 계약을 확인하는 스모크 테스트입니다.
 # 더미 설정으로 객체만 생성하므로 Azure 자격증명이나 모델 호출은 필요하지 않습니다.
 on:
   push:
@@ -24,6 +24,71 @@ jobs:
           python -m pip install --upgrade pip
           python -m pip install -r lab03-hosted-agent-deploy/solution/requirements.txt
           python -m pip check
+
+      - name: Verify dependency and guide contracts
+        run: |
+          python - <<'PY'
+          import re
+          from importlib.metadata import version
+          from pathlib import Path
+
+          expected_versions = {
+              "agent-framework-core": "1.11.0",
+              "agent-framework-openai": "1.10.1",
+              "agent-framework-foundry": "1.10.1",
+              "agent-framework-orchestrations": "1.0.0",
+              "agent-framework-foundry-hosting": "1.0.0a260709",
+          }
+          for package, expected in expected_versions.items():
+              assert version(package) == expected, (package, version(package), expected)
+
+          common = [
+              "agent-framework-core==1.11.0",
+              "agent-framework-openai==1.10.1",
+              "agent-framework-foundry==1.10.1",
+          ]
+          expected_requirements = {
+              "lab01-single-agent/solution/requirements.txt": common
+              + [
+                  "azure-identity>=1.25.0,<2.0.0",
+                  "python-dotenv>=1.0.0,<2.0.0",
+              ],
+              "lab02-multi-agent-workflow/solution/requirements.txt": common
+              + [
+                  "agent-framework-orchestrations==1.0.0",
+                  "azure-identity>=1.25.0,<2.0.0",
+                  "python-dotenv>=1.0.0,<2.0.0",
+              ],
+              "lab03-hosted-agent-deploy/solution/requirements.txt": common
+              + [
+                  "agent-framework-orchestrations==1.0.0",
+                  "agent-framework-foundry-hosting==1.0.0a260709",
+                  "azure-identity>=1.25.0,<2.0.0",
+                  "python-dotenv>=1.0.0,<2.0.0",
+              ],
+          }
+          for file_name, expected in expected_requirements.items():
+              path = Path(file_name)
+              actual = [
+                  line.strip()
+                  for line in path.read_text().splitlines()
+                  if line.strip() and not line.lstrip().startswith("#")
+              ]
+              assert actual == expected, (file_name, actual, expected)
+
+              guide = path.parents[1] / "README.md"
+              guide_text = guide.read_text()
+              for requirement in expected:
+                  assert requirement in guide_text, (guide, requirement)
+
+          lab3_guide = Path("lab03-hosted-agent-deploy/README.md").read_text()
+          protocol = re.search(
+              r"protocols:\s*\n\s*-\s*protocol:\s*responses\s*\n\s*version:\s*([0-9.]+)",
+              lab3_guide,
+          )
+          assert protocol and protocol.group(1) == "2.0.0"
+          assert version("azure-ai-agentserver-core").startswith("2.")
+          PY
 
       - name: Byte-compile all solution scripts
         run: |
