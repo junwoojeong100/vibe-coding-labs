@@ -85,7 +85,7 @@ vibe-coding-labs/
 │   ├── copilot-instructions.md       # 저장소 규칙·MAF 코드 패턴
 │   ├── instructions/                 # 한국어·Python·Azure·Git 커밋 컨벤션
 │   ├── prompts/                      # 재사용 프롬프트(코드 리뷰)
-│   └── workflows/                    # CI: 정답 코드 구문·API 계약 검사(smoke)
+│   └── workflows/                    # CI: 의존성·가이드·구문·API 계약 검사(smoke)
 ├── docs/
 │   ├── 00-prerequisites.md           # 사전 준비/설치/인증
 │   ├── 01-vibe-coding-with-copilot-cli.md  # Copilot CLI vibe coding 워크플로우

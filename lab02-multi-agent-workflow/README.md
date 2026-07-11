@@ -80,10 +80,10 @@ MAF(Microsoft Agent Framework, Python)로 순차 멀티 agent workflow를 만들
 - 명령행 인자로 받은 주제로 workflow.run 실행
 - result.get_outputs() 를 순회하며 각 단계(agent)의 메시지를 단계별로 콘솔에 출력
 - requirements.txt에는 아래 검증 버전을 사용
-  - agent-framework-core==1.8.0
-  - agent-framework-openai==1.8.0
-  - agent-framework-foundry==1.8.0
-  - agent-framework-orchestrations==1.0.0rc3
+  - agent-framework-core==1.11.0
+  - agent-framework-openai==1.10.1
+  - agent-framework-foundry==1.10.1
+  - agent-framework-orchestrations==1.0.0
   - azure-identity>=1.25.0,<2.0.0
   - python-dotenv>=1.0.0,<2.0.0
 - requirements.txt 와 .env.example 도 함께 생성
